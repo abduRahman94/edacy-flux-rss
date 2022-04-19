@@ -1,4 +1,0 @@
-django==3.2
-djangorestframework==3.12
-djangorestframework-xml==2.0.0
-defusedxml==0.7.1
