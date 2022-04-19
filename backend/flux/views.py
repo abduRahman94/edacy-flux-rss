@@ -17,7 +17,8 @@ class FluxDataAPIView(APIView):
 
         data = list(map(lambda item: {
             'title': item.find('title').text,
-            'description': item.find('description').text
+            'description': item.find('description').text,
+            'image': item.find('media:content')
         }, items))
 
         serializer = FluxSerializer(data, many=True)
