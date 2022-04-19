@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import get_flux
+from .views import FluxDataAPIView
 
 
 urlpatterns = [
-    path('', get_flux)
+    path('', FluxDataAPIView.as_view())
 ]

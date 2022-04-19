@@ -1,11 +1,24 @@
 from django.shortcuts import render
-from requests_xml import XMLSession()
-# Create your views here.
+import xml.etree.ElementTree as ET
+from rest_framework.views import APIView
+from .serializers import FluxSerializer
+from rest_framework.response import Response
+from rest_framework import status
+import requests
 
 
-def get_flux(request):
-    session = XMLSession()
-    link = 'https://www.lemonde.fr/rss/en_continu.xml'
-    response = session.get(link)
-    links = response.xml.links
-    return render(request, 'flux/test_flux.html', context={'data': links})
+class FluxDataAPIView(APIView):
+    def get(self, request):
+        link = 'https://www.lemonde.fr/rss/en_continu.xml'
+        response = requests.get(link)
+        xml_string = response.content
+        root = ET.fromstring(xml_string)
+        items = root.find('channel').findall('item')
+
+        data = list(map(lambda item: {
+            'title': item.find('title').text,
+            'description': item.find('description').text
+        }, items))
+
+        serializer = FluxSerializer(data, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
