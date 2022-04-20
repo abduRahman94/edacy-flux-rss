@@ -14,12 +14,13 @@ class FluxDataAPIView(APIView):
         xml_string = response.content
         root = ET.fromstring(xml_string)
         items = root.find('channel').findall('item')
-
-        data = list(map(lambda item: {
-            'title': item.find('title').text,
-            'description': item.find('description').text,
-            'image': item.find('media:content')
+        namespace = {'media': 'http://search.yahoo.com/mrss/'}
+        data = list(map(lambda elt: {
+            'title': elt.find('title').text,
+            'description': elt.find('description').text,
+            'image': elt.find('media:content', namespace).get('url')
         }, items))
 
         serializer = FluxSerializer(data, many=True)
+
         return Response(data=serializer.data, status=status.HTTP_200_OK)
