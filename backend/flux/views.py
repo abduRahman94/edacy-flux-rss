@@ -4,23 +4,28 @@ from rest_framework.views import APIView
 from .serializers import FluxSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
 import requests
 
 
 class FluxDataAPIView(APIView):
+    pagination_class = PageNumberPagination
+
     def get(self, request):
         link = 'https://www.lemonde.fr/rss/en_continu.xml'
         response = requests.get(link)
         xml_string = response.content
         root = ET.fromstring(xml_string)
         items = root.find('channel').findall('item')
+        paginator = PageNumberPagination()
         namespace = {'media': 'http://search.yahoo.com/mrss/'}
         data = list(map(lambda elt: {
             'title': elt.find('title').text,
             'description': elt.find('description').text,
             'image': elt.find('media:content', namespace).get('url')
         }, items))
+        result_page = paginator.paginate_queryset(data, request)
 
-        serializer = FluxSerializer(data, many=True)
+        serializer = FluxSerializer(result_page, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
