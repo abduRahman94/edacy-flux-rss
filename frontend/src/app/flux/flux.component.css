@@ -1,0 +1,30 @@
+ul#horizontal-list {
+	min-width: 500px;
+	list-style: none;
+	padding-top: 10px;
+}
+
+ul#horizontal-list li {
+    display: inline;
+}
+
+body {
+    background-color: #0F056B;
+}
+
+.pagination li {
+    padding: 10px;
+}
+
+h2 {
+    color: white;
+}
+
+div[class=card] {
+    height: 500px;
+}
+
+img.rss {
+    height: 40px;
+    width: 40px;
+}
