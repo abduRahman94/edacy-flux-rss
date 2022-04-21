@@ -3,5 +3,5 @@ from .views import FluxDataAPIView
 
 
 urlpatterns = [
-    path('', FluxDataAPIView.as_view())
+    path('flux/', FluxDataAPIView.as_view()),
 ]
