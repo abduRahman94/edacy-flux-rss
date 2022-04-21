@@ -1,0 +1,22 @@
+# Cloner le projet en utilisant la commande suivante:
+- git clone https://github.com/abduRahman94/edacy-flux-rss.git
+
+# Pour lancer le serveur API taper suivez les instructions suivantes:
+- Déplacez vous dans le dossier backend
+- Créer un environement virtuel avec la commande: 
+	* python -m venv venv (Python3)
+ 	* python virtualenv venv (Versions Python inférieures)
+- Installer les dépendances avec la commande suivante:
+	* pip install -r requirements.txt
+- Finalement lancez le serveur avec la commande: 
+	* python manage.py runserver
+
+# Pour lancer la partie frontend avec Angular taper suivez les étapes suivantes:
+- Placez vous dans le dossier frontend
+- Lancez la commande ng serve --open
+
+# Tester l'application
+- Ouvrez votre navigateur et rendez-vous à l'adresse suivante:
+	* http://localhost:4200
+
+Merci!
