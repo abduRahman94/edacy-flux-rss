@@ -5,6 +5,7 @@ from .serializers import FluxSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
+import math
 import requests
 
 
@@ -25,7 +26,12 @@ class FluxDataAPIView(APIView):
             'image': elt.find('media:content', namespace).get('url')
         }, items))
         result_page = paginator.paginate_queryset(data, request)
-
         serializer = FluxSerializer(result_page, many=True)
+        return Response({
+            'count': len(data),
+            'next': paginator.get_next_link(),
+            'previous': paginator.get_previous_link(),
+            'results': serializer.data,
+            'pages': math.ceil(len(data)/paginator.page_size)
+        }, status=status.HTTP_200_OK)
 
-        return Response(data=serializer.data, status=status.HTTP_200_OK)

@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/flux/', include('flux.urls')),
+    path('api/', include('flux.urls')),
 ]
