@@ -1,1 +1,1 @@
-web: gunicorn backend.wsgi
+web: ng serve frontend --open
