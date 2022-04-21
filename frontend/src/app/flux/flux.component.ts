@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WebAPIService } from '../web-api.service';
-import { Response } from './flux';
+import { Response, Flux } from './flux';
 
 @Component({
   selector: 'app-flux',
@@ -39,16 +39,19 @@ export class FluxComponent implements OnInit {
     })
   }
 
-  // paginateNextPrevious(url: string){
-  //   this.apiService.paginateNextPrevious(url).subscribe({
-  //     next: (data) => {
-  //       this.response = data;
-  //     },
-  //     error: (e) => {
-  //       console.log(e);
-  //     }
-  //   })
-  // }
-  
+  paginateNextPrevious(url: string){
+    this.apiService.paginateNextPrevious(url).subscribe({
+      next: (data) => {
+        this.response = data;
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    })
+  }
 
+  updateFlux(item: Flux){
+
+  }
+  
 }

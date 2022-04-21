@@ -24,13 +24,7 @@ export class WebAPIService {
   }
 
   paginateNextPrevious(urlString: string){
-    if(urlString != null){
       return this.httpClient.get< Response [] >(urlString, {'headers': headers});
-    }
-    else{
-      console.log(window.location)
-      return '';
-    }
   }
 
 }

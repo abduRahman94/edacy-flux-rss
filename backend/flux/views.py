@@ -20,11 +20,12 @@ class FluxDataAPIView(APIView):
         items = root.find('channel').findall('item')
         paginator = PageNumberPagination()
         namespace = {'media': 'http://search.yahoo.com/mrss/'}
-        data = list(map(lambda elt: {
+        data = list(map(lambda i, elt: {
+            'id': i + 1,
             'title': elt.find('title').text,
             'description': elt.find('description').text,
             'image': elt.find('media:content', namespace).get('url')
-        }, items))
+        }, enumerate(items)))
         result_page = paginator.paginate_queryset(data, request)
         serializer = FluxSerializer(result_page, many=True)
         return Response({
